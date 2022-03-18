@@ -1,6 +1,7 @@
 const clearDirectory = require('.')
 const query = process.argv[2]
 const dir = process.argv[3]
+const {version} = require('./package.json')
 
 const options = process.argv.splice(4,3)
 
@@ -38,7 +39,9 @@ options.forEach(o => {
     }
 })
 
-
-
-clearDirectory(query, dir, flags, options)
+if(process.argv.length <= 2)
+{
+    console.log(`purge version ${version}\n\nUsage:\n\npurge.exe <query> <directory> <options>\nNote: at least one type (-f or -d) is required. \n\nOptions:\n\nTypes:\n-f Type: file\n-d Type: directory\n\nFlags:\n-l Minimal logging.\n-L Verbose logging.\n-o Overwrite logfile.\n-v Output will be more verbose.\n-y Delete without asking.`)
+}
+else clearDirectory(query, dir, flags, options)
 
