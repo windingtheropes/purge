@@ -34,6 +34,9 @@ options.forEach(o => {
                 case 'L':
                     flags.verboseLogs = true;
                     break;
+                case 'c':
+                    flags.caseInsensitive = true;
+                    break;
             }
         }
     }
@@ -41,7 +44,7 @@ options.forEach(o => {
 
 if(process.argv.length <= 2)
 {
-    console.log(`purge version ${version}\n\nUsage:\n\npurge.exe <query> <directory> <options>\nNote: at least one type (-f or -d) is required. \n\nOptions:\n\nTypes:\n-f Type: file\n-d Type: directory\n\nFlags:\n-l Minimal logging.\n-L Verbose logging.\n-o Overwrite logfile.\n-v Output will be more verbose.\n-y Delete without asking.`)
+    console.log(`purge version ${version}\n\nUsage:\n\npurge.exe <query> <directory> <options>\nNote: at least one type (-f or -d) is required. \n\nOptions:\n\nTypes:\n-f Type: file\n-d Type: directory\n\nFlags:\n-l Minimal logging.\n-L Verbose logging.\n-o Overwrite logfile.\n-v Output will be more verbose.\n-y Delete without asking.\n-c Ignore capitalization.`)
 }
 else clearDirectory(query, dir, flags, options)
 

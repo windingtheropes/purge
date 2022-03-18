@@ -11,11 +11,11 @@ module.exports = function (q, d, o, f) {
 
 
   var logger = fs.createWriteStream('purge.log.txt', {
-      flags: (o.overwriteLogs ? undefined : 'a')
-    })
+    flags: (o.overwriteLogs ? undefined : 'a')
+  })
 
 
-  if(!o.file && !o.directory) return log("Not searching, no types specified.")
+  if (!o.file && !o.directory) return log("Not searching, no types specified.")
 
   const startTime = new Date()
 
@@ -44,6 +44,8 @@ module.exports = function (q, d, o, f) {
     if (!d) return log('A path must be provided.')
     if (!q) return log('A query must be provided.')
 
+    if(o.caseInsensitive) q = q.toLowerCase()
+
     let rootDir
 
     let files
@@ -54,16 +56,25 @@ module.exports = function (q, d, o, f) {
 
     log(`Reading directory "${dir}"`, true)
 
-    for (const file of files) {
+    for (let file of files) {
       try {
+        
+        if(o.caseInsensitive) file = file.toLowerCase()
+        
         const stat = fs.lstatSync(path.join(rootDir, file))
         
         if (stat.isDirectory() && file != q) {
           readDirs(path.join(dir, file))
         }
-        else
-        {
-          if ((file === q && o.file && stat.isFile()) || (file === q && o.directory && stat.isDirectory())) {
+        else {
+          if (
+            (
+              (file === q && o.file && stat.isFile())
+              ||
+              (file === q && o.directory && stat.isDirectory())
+            )
+
+          ) {
             log(`Found "${dir}\\${file}"`)
             if (o.noAsk) {
               deleteDirectory(path.join(rootDir, file), dir)
@@ -81,7 +92,7 @@ module.exports = function (q, d, o, f) {
             }
           }
         }
-        
+
 
       }
       catch (e) {
@@ -110,8 +121,8 @@ module.exports = function (q, d, o, f) {
     else console.log(c)
 
     if (v && o.verboseLogs) logger.write(`${timeString} ${c}\n`)
-    else if(v && !o.verboseLogs) return;
-    else if(logsEnabled) logger.write(`${timeString} ${c}\n`)
+    else if (v && !o.verboseLogs) return;
+    else if (logsEnabled) logger.write(`${timeString} ${c}\n`)
     else;
   }
 
