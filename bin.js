@@ -1,5 +1,31 @@
-const clearDirectory = require('.') /* the current working directory so that means main.js because of package.json */
-let dir = process.argv[2] /* what the user enters as first argument */
+const clearDirectory = require('.') 
 
-clearDirectory(dir)
+const query = process.argv[2]
+const dir = process.argv[3]
+
+let options = process.argv
+options.shift()
+options.shift()
+options.shift()
+options.shift()
+
+let flags = {}
+
+options.forEach(o => {
+    if(o.startsWith('-'))
+    {
+        switch(o.replace('-', ''))
+        {
+            case 'verbose':
+            case 'v':
+                flags.verbose = true;
+                break;
+            case 'n':
+                flags.ask = true;
+                break;
+        }
+    }
+})
+
+clearDirectory(query, dir, flags)
 

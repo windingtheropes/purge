@@ -1,10 +1,10 @@
 {
-  "name": "cnm",
+  "name": "clear",
   "version": "1.0.0",
   "description": "",
   "main": "main.js",
   "bin": "bin.js",
   "keywords": [],
   "author": "windingtheropes",
-  "license": "MIT"
+  "license": "MIT",
 }
