@@ -5,12 +5,17 @@ const prompt = require('prompt-sync')({ sigint: true });
 
 
 module.exports = function (q, d, o, f) {
-  
-  if(!o.file && !o.directory) return log("Not searching, no types specified.")
+
+  var logsEnabled = o.verboseLogs || o.logs
+
+
 
   var logger = fs.createWriteStream('purge.log.txt', {
-    flags: (o.overwriteLogs ? undefined : 'a')
-  })
+      flags: (o.overwriteLogs ? undefined : 'a')
+    })
+
+
+  if(!o.file && !o.directory) return log("Not searching, no types specified.")
 
   const startTime = new Date()
 
@@ -100,13 +105,14 @@ module.exports = function (q, d, o, f) {
 
     const timeString = `[${hours}:${minutes}.${seconds}.${milliseconds}]`
 
-    if (v && o.verboseLogs) logger.write(`${timeString} ${c}\n`)
-    else if(v && !o.verboseLogs);
-    else logger.write(`${timeString} ${c}\n`)
-
     if (v && o.verbose) console.log(c)
     else if (v && !o.verbose);
     else console.log(c)
+
+    if (v && o.verboseLogs) logger.write(`${timeString} ${c}\n`)
+    else if(v && !o.verboseLogs) return;
+    else if(logsEnabled) logger.write(`${timeString} ${c}\n`)
+    else;
   }
 
   function deleteDirectory(p, dir) {
