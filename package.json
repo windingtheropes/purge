@@ -1,5 +1,5 @@
 {
-  "name": "clear",
+  "name": "purge",
   "version": "1.0.0",
   "description": "",
   "main": "main.js",
@@ -7,4 +7,8 @@
   "keywords": [],
   "author": "windingtheropes",
   "license": "MIT",
+  "dependencies": {
+    "pkg": "^5.5.2",
+    "prompt-sync": "^4.2.0"
+  }
 }
