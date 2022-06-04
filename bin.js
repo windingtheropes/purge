@@ -50,7 +50,7 @@ options.forEach(o => {
 
 if(process.argv.length <= 2)
 {
-    console.log(`purge version ${version}\n\nUsage:\n\npurge.exe <query> <directory> <options>\nNote: at least one type (-f or -d) is required. \n\nOptions:\n\nTypes:\n-f Type: file\n-d Type: directory\n\nFlags:\n-l Minimal logging.\n-L Verbose logging.\n-o Overwrite logfile.\n-v Output will be more verbose.\n-y Delete without asking.\n-c Ignore capitalization.`)
+    console.log(`purge version ${version}\n\nUsage:\n\npurge.exe <query> <directory> <options>\nNote: at least one type (-f or -d) is required. \n\nOptions:\n\nTypes:\n-f Type: file\n-d Type: directory\n\nFlags:\n-l Minimal logging.\n-L Verbose logging.\n-o Overwrite logfile.\n-v Output will be more verbose.\n-y Delete without asking.\n-c Ignore capitalization.\n-e Search for <query> at end of file (extension)\n-s Search for <query> at start of file`)
 }
 else clearDirectory(query, dir, flags, options)
 
