@@ -68,11 +68,24 @@ module.exports = function (q, d, o, f) {
         }
         else {
           if (
+            // handle if end is passed
             (
-              (file === q && o.file && stat.isFile())
-              ||
-              (file === q && o.directory && stat.isDirectory())
-            )
+              o.end && ((file.endsWith(q) && o.file && stat.isFile())
+               ||
+               (file.endsWith(q) && o.directory && stat.isDirectory()))
+             ) ||
+             // handle if s is passed
+            (
+               o.start && ((file.startsWith(q) && o.file && stat.isFile())
+                ||
+                (file.startsWith(q) && o.directory && stat.isDirectory()))
+            ) ||
+            // if neither end or start are passed
+            (
+              !o.end && !o.start && ((file === q && o.file && stat.isFile())
+               ||
+               (file === q && o.directory && stat.isDirectory()))
+             )
 
           ) {
             log(`Found "${dir}\\${file}"`)

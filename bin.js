@@ -37,6 +37,12 @@ options.forEach(o => {
                 case 'c':
                     flags.caseInsensitive = true;
                     break;
+                case 'e':
+                    flags.end = true;
+                    break;
+                case 's':
+                    flags.start = true;
+                    break;
             }
         }
     }
